@@ -1,6 +1,4 @@
-function fullfan(figs)
-
-    leftMonitor = 1;
+function fullfan(leftMonitor, figs)
 
     if ~exist('figs', 'var')
         figs = findobj('Type', 'figure');
