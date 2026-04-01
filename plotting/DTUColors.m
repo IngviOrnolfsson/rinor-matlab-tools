@@ -1,8 +1,10 @@
 function RGBcodes = DTUColors(type,colors)
 
-if ~exist('colors','var')
-colors = {'corporate red','blue','green','orange','purple','navy blue','yellow','bright green','pink','grey','red'};
-end
+  arguments 
+    type (1, 1) string  = "qualitative"
+    colors cell = {'corporate red','blue','green','orange','purple','navy blue','yellow','bright green','pink','grey','red'}
+  end
+
 
 dict = containers.Map;
 dict('corporate red') = hex2rgb('990000');
@@ -20,7 +22,7 @@ dict('purple') = hex2rgb('79238E');
 switch type
     case 'qualitative'
         for i = 1:numel(colors)
-        RGBcodes(:,i) = dict(char(colors{i}));
+            RGBcodes(:,i) = dict(char(colors{i}));
         end
 
     otherwise   % First input can be a single color
