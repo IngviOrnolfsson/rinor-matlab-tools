@@ -1,7 +1,15 @@
-function fullfan(leftMonitor, figs)
+function fullfan(leftMonitor, nx, ny, figs)
 
     if ~exist('figs', 'var')
         figs = findobj('Type', 'figure');
+    end
+
+    if ~exist('nx', 'var')
+        nx = [];
+    end
+
+    if ~exist('ny', 'var')
+        ny = [];
     end
 
     nF = numel(figs);
@@ -20,8 +28,15 @@ function fullfan(leftMonitor, figs)
 
     [~, idx] = min(abs(diff(dists)));
     dim = dists(:, idx);
-    nx = max(dim);
-    ny = min(dim);
+
+    if isempty(nx) && isempty(ny)
+        nx = max(dim);
+        ny = min(dim);
+    elseif isempty(nx)
+        nx = ceil(nF / ny);
+    elseif isempty(ny)
+        ny = ceil(nF / nx);
+    end
 
     M = get(groot, 'monitorPositions');
 
@@ -37,9 +52,10 @@ function fullfan(leftMonitor, figs)
 
     fi = 0;
 
-    for iy = ny:-1:1
+    for ix = 1:nx
 
-        for ix = 1:nx
+        for iy = ny:-1:1
+
             fi = fi + 1;
 
             if fi <= nF
